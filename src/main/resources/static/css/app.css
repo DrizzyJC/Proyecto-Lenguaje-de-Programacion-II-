@@ -1,0 +1,273 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #111;
+}
+
+/* ===== SIDEBAR GENERAL ===== */
+
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    background: #137333;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 22px 0;
+}
+
+.sidebar h2 {
+    margin: 0;
+    padding: 0 18px 22px;
+    font-size: 24px;
+}
+
+.user-box {
+    padding: 0 18px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.25);
+    margin-bottom: 12px;
+}
+
+.user-box strong {
+    display: block;
+    font-size: 15px;
+}
+
+.user-box small {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.nav-link {
+    display: block;
+    padding: 13px 18px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(255,255,255,0.18);
+}
+
+.logout {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.25);
+}
+
+/* ===== CONTENIDO ===== */
+
+.main {
+    margin-left: 240px;
+    padding: 28px 28px 40px;
+    min-height: 100vh;
+}
+
+.page-header {
+    margin-bottom: 22px;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #137333;
+}
+
+.page-header p {
+    margin-top: 8px;
+    color: #555;
+}
+
+/* ===== CARDS ===== */
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 18px 22px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.card.alerta {
+    border-left: 5px solid red;
+}
+
+.card h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.card p {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #137333;
+}
+
+/* ===== FORMULARIOS ===== */
+
+.form-card,
+.table-card,
+.panel {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    margin-bottom: 22px;
+}
+
+.form-card h3,
+.panel h2 {
+    margin-top: 0;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+.search-form {
+    display: flex;
+    gap: 8px;
+    background: white;
+    padding: 14px;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    margin-bottom: 18px;
+}
+
+.search-form input {
+    margin: 0;
+}
+
+.btn {
+    background: #137333;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover {
+    background: #0f5c28;
+}
+
+.btn-danger {
+    background: #d93025;
+}
+
+.btn-danger:hover {
+    background: #b3261e;
+}
+
+/* ===== TABLAS ===== */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #137333;
+    color: white;
+}
+
+th {
+    padding: 11px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+tbody tr:nth-child(even) {
+    background: #f2f2f2;
+}
+
+tbody tr:hover {
+    background: #eaf5ee;
+}
+
+/* ===== BADGES ===== */
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.estado-optimo {
+    background: #d4edda;
+    color: #155724;
+}
+
+.estado-agotarse {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.estado-critico {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.ingreso {
+    color: #137333;
+    font-weight: bold;
+}
+
+.salida {
+    color: #d93025;
+    font-weight: bold;
+}
+
+.error {
+    background: #fdeaea;
+    color: #b00020;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}

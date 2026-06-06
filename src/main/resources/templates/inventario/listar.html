@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FALABELLA ERP — Stock e Inventario</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/falabella-ui.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/menu :: header('Stock e Inventario')}"></div>
+
+<div class="layout">
+
+    <div th:replace="~{fragments/menu :: sidebar('inventario')}"></div>
+
+    <main class="main">
+
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Stock e Inventario</h1>
+                <div class="breadcrumb">Inicio / Stock e Inventario</div>
+            </div>
+
+            <div class="toolbar">
+                <form class="search-form" th:action="@{/inventario}" method="get">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text"
+                               name="filtro"
+                               placeholder="Buscar producto, almacén o ubicación..."
+                               th:value="${filtro}">
+                    </div>
+
+                    <button class="btn-primary" type="submit">Buscar</button>
+
+                    <a class="btn-primary" th:href="@{/inventario}">Limpiar</a>
+                </form>
+            </div>
+        </div>
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+                <h3>Total registros</h3>
+                <p th:text="${totalRegistros}">0</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Almacenes activos</h3>
+                <p th:text="${almacenesActivos}">0</p>
+            </div>
+
+            <div class="summary-card alert">
+                <h3>Stock bajo</h3>
+                <p th:text="${stockBajo}">0</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>Total unidades</h3>
+                <p th:text="${totalStock}">0</p>
+            </div>
+
+        </section>
+
+        <div class="card">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Almacén</th>
+                    <th>Ubicación</th>
+                    <th>Stock actual</th>
+                    <th>Stock mínimo</th>
+                    <th>Estado</th>
+                    <th>Última actualización</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="inv : ${inventarios}">
+                    <td class="prod-id" th:text="${inv.idInventario}">1</td>
+
+                    <td class="prod-name" th:text="${inv.nombreProducto}">
+                        Producto
+                    </td>
+
+                    <td th:text="${inv.nombreAlmacen}">
+                        Almacén
+                    </td>
+
+                    <td th:text="${inv.ubicacion}">
+                        Ubicación
+                    </td>
+
+                    <td th:text="${inv.stockActual}">
+                        0
+                    </td>
+
+                    <td th:text="${inv.stockMinimo}">
+                        0
+                    </td>
+
+                    <td>
+                        <span class="badge"
+                              th:classappend="${inv.estado == 'Óptimo'} ? ' badge-optimo' : (${inv.estado == 'Por Agotarse'} ? ' badge-warning' : ' badge-danger')"
+                              th:text="${inv.estado}">
+                            Estado
+                        </span>
+                    </td>
+
+                    <td th:text="${#temporals.format(inv.fechaActualizacion, 'dd/MM/yyyy HH:mm')}">
+                        01/01/2026 00:00
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(inventarios)}">
+                    <td colspan="8" style="text-align:center;">
+                        No se encontraron registros de inventario.
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="table-footer">
+                <span class="table-info">
+                    <span th:text="${totalRegistros}">0</span> registro(s) encontrado(s)
+                </span>
+            </div>
+        </div>
+
+    </main>
+
+</div>
+
+</body>
+</html>

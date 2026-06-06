@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<header class="top-header" th:fragment="header(titulo)">
+    <div class="brand">
+        FALABELLA <span>ERP</span> —
+        <span th:text="${titulo}">Gestión de Inventarios</span>
+    </div>
+
+    <div class="session-info">
+        <span class="session-text">
+            Sesión:
+            <strong th:text="${nombreUsuario}">Usuario</strong>
+            (<span th:text="${rolUsuario}">Rol</span>)
+        </span>
+        <a th:href="@{/logout}" class="avatar" title="Cerrar sesión">⏻</a>
+    </div>
+</header>
+
+<nav class="sidebar" th:fragment="sidebar(activo)">
+    <div class="nav-section">
+		<a class="nav-item"
+		   th:href="@{/dashboard}"
+		   th:classappend="${activo == 'dashboard'} ? ' active' : ''">
+		    <span class="nav-icon">🏠</span> Inicio / Resumen
+		</a>
+
+		<a class="nav-item"
+		   th:href="@{/inventario}"
+		   th:classappend="${activo == 'inventario'} ? ' active' : ''">
+		    <span class="nav-icon">📦</span> Stock e Inventario
+		</a>
+
+		<a class="nav-item"
+		   th:href="@{/productos}"
+		   th:classappend="${activo == 'productos'} ? ' active' : ''">
+		    <span class="nav-icon">🏷️</span> Productos
+		</a>
+
+		<a class="nav-item"
+		   th:href="@{/categorias}"
+		   th:classappend="${activo == 'categorias'} ? ' active' : ''">
+		    <span class="nav-icon">☰</span> Categorías
+		</a>
+
+        <a class="nav-item" href="#">
+            <span class="nav-icon">🚚</span> Proveedores
+        </a>
+
+        <a class="nav-item" href="#">
+            <span class="nav-icon">🏢</span> Almacenes
+        </a>
+
+        <a class="nav-item" href="#">
+            <span class="nav-icon">↔️</span> Movimientos
+        </a>
+
+        <div class="nav-divider"></div>
+
+        <a class="nav-item" href="#">
+            <span class="nav-icon">👤</span> Usuarios y Roles
+        </a>
+    </div>
+</nav>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FALABELLA ERP — Categorías</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/falabella-ui.css}">
+</head>
+
+<body>
+
+<div th:replace="~{fragments/menu :: header('Gestión de Categorías')}"></div>
+
+<div class="layout">
+
+    <div th:replace="~{fragments/menu :: sidebar('categorias')}"></div>
+
+    <main class="main">
+
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Categorías</h1>
+                <div class="breadcrumb">Inicio / Categorías</div>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Buscar categoría..." oninput="filterTable()">
+                </div>
+
+                <button class="btn-primary" type="button" onclick="openModal()">
+                    + Nueva Categoría
+                </button>
+            </div>
+        </div>
+
+        <div class="error" th:if="${param.error}" th:text="${param.error}"></div>
+
+        <div class="card">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID Categoría</th>
+                    <th>Nombre de Categoría</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+
+                <tbody id="tableBody">
+                <tr th:each="cat : ${categorias}"
+                    th:attr="data-id=${cat.idCategoria},
+                             data-nombre=${cat.nombreCategoria}">
+                    <td class="cat-id" th:text="${cat.idCategoria}">1</td>
+                    <td class="cat-name" th:text="${cat.nombreCategoria}">Categoría</td>
+                    <td>
+                        <span class="badge badge-active">Activo</span>
+                    </td>
+                    <td>
+                        <div class="actions">
+                            <button class="btn-icon btn-edit" type="button" onclick="editCategory(this)" title="Editar">✏️</button>
+
+                            <a class="btn-icon btn-delete"
+                               th:href="@{/categorias/eliminar(id=${cat.idCategoria})}"
+                               onclick="return confirm('¿Eliminar esta categoría?')"
+                               title="Eliminar">
+                                🗑️
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="table-footer">
+                <span class="table-info" id="tableInfo">Categorías registradas</span>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal">
+        <div class="modal-title" id="modalTitle">Nueva Categoría</div>
+
+        <form th:action="@{/categorias/guardar}" method="post" th:object="${categoria}">
+
+            <div class="form-group">
+                <label class="form-label">ID Categoría</label>
+                <input class="form-input" type="number" th:field="*{idCategoria}" id="fId" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Nombre de Categoría</label>
+                <input class="form-input" type="text" th:field="*{nombreCategoria}" id="fNombre" required>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-secondary" type="button" onclick="closeModal()">Cancelar</button>
+                <button class="btn-primary" type="submit">Guardar</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        document.getElementById("modalTitle").textContent = "Nueva Categoría";
+        document.getElementById("fId").value = "";
+        document.getElementById("fNombre").value = "";
+        document.getElementById("modalOverlay").classList.add("open");
+    }
+
+    function editCategory(btn) {
+        const row = btn.closest("tr");
+
+        document.getElementById("modalTitle").textContent = "Editar Categoría";
+        document.getElementById("fId").value = row.dataset.id;
+        document.getElementById("fNombre").value = row.dataset.nombre;
+
+        document.getElementById("modalOverlay").classList.add("open");
+    }
+
+    function closeModal() {
+        document.getElementById("modalOverlay").classList.remove("open");
+    }
+
+    function closeModalOutside(e) {
+        if (e.target.id === "modalOverlay") {
+            closeModal();
+        }
+    }
+
+    function filterTable() {
+        const q = document.getElementById("searchInput").value.toLowerCase();
+        const rows = document.querySelectorAll("#tableBody tr");
+        let visible = 0;
+
+        rows.forEach(row => {
+            const text = row.innerText.toLowerCase();
+            const show = text.includes(q);
+            row.style.display = show ? "" : "none";
+            if (show) visible++;
+        });
+
+        document.getElementById("tableInfo").textContent = visible + " categoría(s) encontrada(s)";
+    }
+
+    filterTable();
+</script>
+
+</body>
+</html>

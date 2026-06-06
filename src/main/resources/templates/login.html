@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar Sesión - Falabella ERP</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1A7C3E, #0f4d26);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            background: white;
+            width: 390px;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo h1 {
+            color: #1A7C3E;
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .logo p {
+            color: #666;
+            margin-top: 8px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            display: block;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 13px;
+            background: #1A7C3E;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        button:hover {
+            background: #146332;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .datos {
+            margin-top: 18px;
+            background: #f4f6f8;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="logo">
+        <h1>Falabella ERP</h1>
+        <p>Sistema de Gestión de Stock</p>
+    </div>
+
+    <div class="error" th:if="${error}" th:text="${error}">
+        Error
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <label>Correo</label>
+        <input type="email" name="correo" placeholder="Ingrese su correo" required>
+
+        <label>Contraseña</label>
+        <input type="password" name="contrasena" placeholder="Ingrese su contraseña" required>
+
+        <button type="submit">Iniciar sesión</button>
+    </form>
+
+   
+
+</div>
+
+</body>
+</html>
